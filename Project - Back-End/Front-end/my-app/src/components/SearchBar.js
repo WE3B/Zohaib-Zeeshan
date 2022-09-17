@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React,{useState,useEffect} from "react";
 import { styled, alpha } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
@@ -51,17 +51,22 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export default function PrimarySearchAppBar({animes,setAnimes}) {
     const [search, setSearch] = useState("");
     const [filter, setFilter] = useState("");
+    
+    useEffect(() => {
+      const fetchData = async () => {
+        const response = await fetch("http://localhost:4002/api/animes")
+        const json = await response.json()
+        if (response.ok) { setFilter(json) }
+      };
+      fetchData()
+    }, [])
     const handleSearch= (event)=>{
-
-     
         setSearch(event.target.value)
-        console.log("Temp Rows=>", filter)
-        const list = filter.filter(value => {
-            
+        console.log(search.message)
+        const filterAnime = filter.filter(value => {
             return value.name.toLowerCase().includes(event.target.value.toLowerCase())
         })
-        console.log("list length is", manageRows.length) 
-        setRows(list)
+        setAnimes(filterAnime)
     }
   return (
     <>

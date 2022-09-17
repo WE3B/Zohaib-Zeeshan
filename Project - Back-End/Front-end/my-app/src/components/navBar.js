@@ -6,7 +6,7 @@ import Button from '@mui/material/Button'
 function Header() {
   const handleLogout = () => {
     localStorage.removeItem("token");
-    window.location.reload();
+    window.location = "/signIn";
   };
   return (
     <div className="Navbar">

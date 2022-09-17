@@ -11,12 +11,13 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from "axios";
 import { useState,useEffect } from "react";
 import { FormLabel, Button, FormGroup, FormControl, FormControlLabel, Checkbox } from "@mui/material";
-import { useParams  } from "react-router-dom";
+import { useNavigate, useParams  } from "react-router-dom";
 
 
 const theme = createTheme();
 export default function UpdateAnime() {
 
+  const navigate = useNavigate()
   const [data, setData] = useState({ name: "", summary: "", type: "", picture: "", genre: [] });
   const [error, setError] = useState("");
 
@@ -42,8 +43,8 @@ export default function UpdateAnime() {
     try {
       const url = `http://localhost:4002/api/animes/${id}`;
       const { data: res } = await axios.patch(url, data);
-      localStorage.setItem("token", res.data);
-      window.location = "/HomePage";
+      navigate("/HomePage")
+      console.log(res.message)
     } catch (error) {
       if (
         error.response &&

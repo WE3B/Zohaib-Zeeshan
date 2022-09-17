@@ -17,8 +17,6 @@ export default function ImgMediaCard() {
     const fetchData = async () => {
       const response = await fetch("http://localhost:4002/api/animes")
       const json = await response.json()
-      console.log("Animes", json);
-
       if (response.ok) { setAnimes(json) }
     };
     fetchData()
@@ -29,11 +27,10 @@ export default function ImgMediaCard() {
     <div>
       <SearchBar animes={animes} setAnimes={setAnimes}/>
       <Grid container rowSpacing={2} m={"2rem"}   alignItems="center" justify="center" >
-
         {animes && animes.map((anime) => {
           return (
             <Grid item xs={3} >
-              <Card sx={{ maxWidth: 255 }} key={anime._id}>
+              <Card sx={{ maxWidth: 255 , m:'auto'}} key={anime._id}>
                 <CardActionArea>
                   <CardMedia
                     component="img"
